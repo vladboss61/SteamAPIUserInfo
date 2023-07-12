@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamAPIUserInfo", "SteamAPIUserInfo\SteamAPIUserInfo.csproj", "{70228382-46C4-415A-BBFA-AC0D4CB0501F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamAPIUserInfo", "SteamAPIUserInfo\SteamAPIUserInfo.csproj", "{70228382-46C4-415A-BBFA-AC0D4CB0501F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamAPIUserInfoUI", "SteamAPIUserInfoUI\SteamAPIUserInfoUI.csproj", "{615D8038-2B46-41EB-ABE5-5F979AC08E94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{70228382-46C4-415A-BBFA-AC0D4CB0501F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70228382-46C4-415A-BBFA-AC0D4CB0501F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70228382-46C4-415A-BBFA-AC0D4CB0501F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615D8038-2B46-41EB-ABE5-5F979AC08E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615D8038-2B46-41EB-ABE5-5F979AC08E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615D8038-2B46-41EB-ABE5-5F979AC08E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615D8038-2B46-41EB-ABE5-5F979AC08E94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
