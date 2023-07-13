@@ -34,10 +34,12 @@ internal class SteamChecker : IDisposable
         using var writerAll = File.CreateText($"all_comments_and_screenshots_{now}.txt");
         using var writerOnlyComments = File.CreateText($"all_comments_{now}.txt");
         using var writerOnlyScreenshots = File.CreateText($"all_screenshots_{now}.txt");
+        using var writerNoCommentsNoSceens = File.CreateText($"no_comments_no_screenshots_{now}.txt");
 
         List<string> allItems = new List<string>();
         List<string> commentsItems = new List<string>();
         List<string> screenshotsItems = new List<string>();
+        List<string> noCommentsNoScreens = new List<string>();
 
         var countStop = 0;
         int number = 1;
@@ -72,6 +74,12 @@ internal class SteamChecker : IDisposable
                     commentsItems.Add($"{id}");
                 }
 
+                if (comments == YesNo.No && screenshots == YesNo.No)
+                {
+                    await writerNoCommentsNoSceens.WriteLineAsync($"{id}");
+                    noCommentsNoScreens.Add($"{id}");
+                }
+
                 if (countStop == 100)
                 {
                     await Task.Delay(new Random().Next(8000, 10000));
@@ -79,6 +87,7 @@ internal class SteamChecker : IDisposable
                     await writerAll.FlushAsync();
                     await writerOnlyComments.FlushAsync();
                     await writerOnlyScreenshots.FlushAsync();
+                    await writerNoCommentsNoSceens.FlushAsync();
 
                     countStop = 0;
                 }
@@ -102,6 +111,7 @@ internal class SteamChecker : IDisposable
                 throw;
             }
         }
+        new ResultForm(noCommentsNoScreens.ToArray(), "No Comments, No Screenshots").Show();
         new ResultForm(commentsItems.ToArray(), "Comments").Show();
         new ResultForm(screenshotsItems.ToArray(), "Screenshots").Show();
         new ResultForm(allItems.ToArray(), "Все и Comments и Screenshots").Show();
