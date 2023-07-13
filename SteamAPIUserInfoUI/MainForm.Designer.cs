@@ -58,6 +58,7 @@ partial class MainForm
             // IdsInput
             // 
             this.IdsInput.Location = new System.Drawing.Point(12, 31);
+            this.IdsInput.MaxLength = 382136;
             this.IdsInput.Multiline = true;
             this.IdsInput.Name = "IdsInput";
             this.IdsInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -83,7 +84,7 @@ partial class MainForm
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Clicked);
             // 
-            // label1
+            // ProgressLabel
             // 
             this.ProgressLabel.AutoSize = true;
             this.ProgressLabel.Location = new System.Drawing.Point(532, 73);

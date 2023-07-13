@@ -45,7 +45,7 @@ public partial class MainForm : Form
             try
             {
                 var webInterfaceFactory = new SteamWebInterfaceFactory(currentApiKey);
-                await checker.AnalyzeIdsAsync(ids, webInterfaceFactory);
+                await checker.AnalyzeIdsAsync(ids, webInterfaceFactory, ProgressLabel);
                 break;
             }
             catch

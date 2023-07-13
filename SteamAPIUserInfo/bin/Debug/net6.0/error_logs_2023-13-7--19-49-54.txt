@@ -1,0 +1,10 @@
+Something when wrong. Last have not been analyzed id: 76561198414669268.
+Stack Trace:
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at SteamWebAPI2.Utilities.SteamWebRequest.SendWebRequestAsync[T](HttpMethod httpMethod, String interfaceName, String methodName, Int32 methodVersion, IList`1 parameters)
+   at SteamWebAPI2.Utilities.SteamWebRequest.GetAsync[T](String interfaceName, String methodName, Int32 methodVersion, IList`1 parameters)
+   at SteamWebAPI2.Utilities.SteamWebInterface.GetAsync[T](String methodName, Int32 version, IList`1 parameters)
+   at SteamWebAPI2.Interfaces.SteamUser.GetPlayerSummaryAsync(UInt64 steamId)
+   at SteamAPIUserInfo.SteamChecker.AnalyzeIdsAsync(UInt64[] ids) in D:\Projects\Programming\CSharp\SteamAPIUserInfo\SteamAPIUserInfo\SteamChecker.cs:line 48
+Message:
+Response status code does not indicate success: 403 (Forbidden).

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SteamAPIUserInfo;
 
@@ -26,7 +27,7 @@ internal class SteamChecker : IDisposable
         _httpClient = new HttpClient();
     }
 
-    public async Task AnalyzeIdsAsync(ulong[] ids, SteamWebInterfaceFactory steamWebInterfaceFactory)
+    public async Task AnalyzeIdsAsync(ulong[] ids, SteamWebInterfaceFactory steamWebInterfaceFactory, Label lable)
     {
         var steamUserInterface = steamWebInterfaceFactory.CreateSteamWebInterface<SteamUser>(_httpClient);
         var now = DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss");
@@ -47,6 +48,7 @@ internal class SteamChecker : IDisposable
         foreach (var id in ids)
         {
             Console.WriteLine($"Number: {number} | Processing id - {id}");
+            lable.Text = $"Id: {id} Working...";
 
             try
             {
