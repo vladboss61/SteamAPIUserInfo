@@ -32,15 +32,18 @@ internal class SteamChecker : IDisposable
         var steamUserInterface = steamWebInterfaceFactory.CreateSteamWebInterface<SteamUser>(_httpClient);
         var now = DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss");
 
-        using var writerAll = File.CreateText($"all_comments_and_screenshots_{now}.txt");
-        using var writerOnlyComments = File.CreateText($"all_comments_{now}.txt");
-        using var writerOnlyScreenshots = File.CreateText($"all_screenshots_{now}.txt");
-        using var writerNoCommentsNoSceens = File.CreateText($"no_comments_no_screenshots_{now}.txt");
+        await using var writerAll = File.CreateText($"all_comments_and_screenshots_{now}.txt");
+        await using var writerOnlyComments = File.CreateText($"all_comments_{now}.txt");
+        await using var writerOnlyScreenshots = File.CreateText($"all_screenshots_{now}.txt");
+        await using var writerNoCommentsNoSceens = File.CreateText($"no_comments_no_screenshots_{now}.txt");
+
+        await using var errorLogs = File.CreateText($"error_logs_{now}.txt");
 
         List<string> allItems = new List<string>();
         List<string> commentsItems = new List<string>();
         List<string> screenshotsItems = new List<string>();
         List<string> noCommentsNoScreens = new List<string>();
+        List<string> brokenIds = new List<string>();
 
         var countStop = 0;
         int number = 1;
@@ -98,25 +101,22 @@ internal class SteamChecker : IDisposable
             }
             catch (Exception ex)
             {
-                new ResultForm(commentsItems.ToArray(), "Не все Comments но те что смог проанализиовать").Show();
-                new ResultForm(screenshotsItems.ToArray(), "Не все Screenshots").Show();
-                new ResultForm(allItems.ToArray(), "Все и Comments и Screenshots но те что смог проанализиовать").Show();
-
-                using var errorLogs = File.CreateText($"error_logs_{now}.txt");
                 var msg = $"Something when wrong. Last have not been analyzed id: {id}.";
-
                 await errorLogs.WriteLineAsync(msg);
                 await errorLogs.WriteLineAsync("Stack Trace:");
                 await errorLogs.WriteLineAsync(ex.StackTrace);
                 await errorLogs.WriteLineAsync("Message:");
                 await errorLogs.WriteLineAsync(ex.Message);
-                throw;
+                brokenIds.Add($"{id}");
+
+                await Task.Delay(5000);
             }
         }
         new ResultForm(noCommentsNoScreens.ToArray(), "No Comments, No Screenshots").Show();
         new ResultForm(commentsItems.ToArray(), "Comments").Show();
         new ResultForm(screenshotsItems.ToArray(), "Screenshots").Show();
         new ResultForm(allItems.ToArray(), "Все и Comments и Screenshots").Show();
+        new ResultForm(brokenIds.ToArray(), "Не обработанные ids").Show();
     }
 
     private static YesNo GetYesNoComments(CommentPermission commentsPermission)

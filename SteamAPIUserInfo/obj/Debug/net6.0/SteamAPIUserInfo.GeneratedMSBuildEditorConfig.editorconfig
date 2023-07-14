@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SteamAPIUserInfo
-build_property.ProjectDir = D:\Projects\Programming\CSharp\SteamAPIUserInfo\SteamAPIUserInfo\
+build_property.ProjectDir = D:\SteamAPIUserInfo\SteamAPIUserInfo\
