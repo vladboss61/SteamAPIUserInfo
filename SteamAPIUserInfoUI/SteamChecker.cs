@@ -67,7 +67,7 @@ internal class SteamChecker : IDisposable
 
                 allItems.Add(allStr);
 
-                if (screenshots == YesNo.Yes && comments == YesNo.Yes)
+                if (screenshots == YesNo.Yes )
                 {
                     await writerOnlyScreenshots.WriteLineAsync($"{id}");
                     screenshotsItems.Add($"{id}");
@@ -102,6 +102,7 @@ internal class SteamChecker : IDisposable
             catch (Exception ex)
             {
                 var msg = $"Something when wrong. Last have not been analyzed id: {id}.";
+
                 await errorLogs.WriteLineAsync(msg);
                 await errorLogs.WriteLineAsync("Stack Trace:");
                 await errorLogs.WriteLineAsync(ex.StackTrace);
