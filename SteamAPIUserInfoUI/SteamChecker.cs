@@ -19,7 +19,7 @@ enum YesNo
 
 internal class SteamChecker : IDisposable
 {
-    private readonly string PatternNoScreenshot = "id=\"NoItemsContainer\"";
+    private readonly string PatternNoScreenshotOrArtworks = "id=\"NoItemsContainer\"";
     private readonly HttpClient _httpClient;
 
     public SteamChecker()
@@ -32,7 +32,7 @@ internal class SteamChecker : IDisposable
         var steamUserInterface = steamWebInterfaceFactory.CreateSteamWebInterface<SteamUser>(_httpClient);
         var now = DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss");
 
-        await using var writerAll = File.CreateText($"all_comments_and_screenshots_{now}.txt");
+        await using var writerAll = File.CreateText($"all_comments_and_screenshots_and_illustrations_{now}.txt");
         await using var writerOnlyComments = File.CreateText($"all_comments_{now}.txt");
         await using var writerOnlyScreenshots = File.CreateText($"all_screenshots_{now}.txt");
         await using var writerNoCommentsNoSceens = File.CreateText($"no_comments_no_screenshots_{now}.txt");
@@ -58,28 +58,34 @@ internal class SteamChecker : IDisposable
                 var playerSummaryResponse = await steamUserInterface.GetPlayerSummaryAsync(id);
                 var commentsPermission = playerSummaryResponse.Data.CommentPermission;
 
-                var result = await (await _httpClient.GetAsync($"{SteamConstants.SteamUrl}/profiles/{id}/screenshots")).Content.ReadAsStringAsync();
+                var screen = await (await _httpClient.GetAsync($"{SteamConstants.SteamUrl}/profiles/{id}/screenshots")).Content.ReadAsStringAsync();
+
+                await Task.Delay(100);
 
                 var comments = GetYesNoComments(commentsPermission);
-                var screenshots = GetYesNoScreenshot(result);
+                var screenshots = GetYesNoScreenshotOrArtWork(screen);
+                var artWork = await (await _httpClient.GetAsync($"{SteamConstants.SteamUrl}/profiles/{id}/images")).Content.ReadAsStringAsync();
+
+                var art = GetYesNoScreenshotOrArtWork(artWork);
+
                 var allStr = $"Number: {number} | Id: {id} | Comments: {comments} | Screenshot: {screenshots}";
                 await writerAll.WriteLineAsync(allStr);
 
                 allItems.Add(allStr);
 
-                if (screenshots == YesNo.Yes )
+                if (screenshots == YesNo.Yes || art == YesNo.Yes)
                 {
                     await writerOnlyScreenshots.WriteLineAsync($"{id}");
                     screenshotsItems.Add($"{id}");
                 }
 
-                if (comments == YesNo.Yes && screenshots == YesNo.No)
+                if (comments == YesNo.Yes && screenshots == YesNo.No && art == YesNo.No)
                 {
                     await writerOnlyComments.WriteLineAsync($"{id}");
                     commentsItems.Add($"{id}");
                 }
 
-                if (comments == YesNo.No && screenshots == YesNo.No)
+                if (comments == YesNo.No && screenshots == YesNo.No && art == YesNo.No)
                 {
                     await writerNoCommentsNoSceens.WriteLineAsync($"{id}");
                     noCommentsNoScreens.Add($"{id}");
@@ -125,9 +131,9 @@ internal class SteamChecker : IDisposable
         return (commentsPermission == CommentPermission.Public || commentsPermission == CommentPermission.FriendsOnly) ? YesNo.Yes : YesNo.No;
     }
 
-    private YesNo GetYesNoScreenshot(string pageContent)
+    private YesNo GetYesNoScreenshotOrArtWork(string pageContent)
     {
-        return pageContent.Contains(PatternNoScreenshot) ? YesNo.No : YesNo.Yes;
+        return pageContent.Contains(PatternNoScreenshotOrArtworks) ? YesNo.No : YesNo.Yes;
     }
 
     public void Dispose()
