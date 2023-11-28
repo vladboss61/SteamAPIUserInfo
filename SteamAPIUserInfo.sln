@@ -5,7 +5,11 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamAPIUserInfo", "SteamAPIUserInfo\SteamAPIUserInfo.csproj", "{70228382-46C4-415A-BBFA-AC0D4CB0501F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamAPIUserInfoUI", "SteamAPIUserInfoUI\SteamAPIUserInfoUI.csproj", "{615D8038-2B46-41EB-ABE5-5F979AC08E94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamAPIUserInfoUI", "SteamAPIUserInfoUI\SteamAPIUserInfoUI.csproj", "{615D8038-2B46-41EB-ABE5-5F979AC08E94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamGroupSearcher", "SteamGroupSearcher\SteamGroupSearcher.csproj", "{00EAFF32-24D9-42C5-A503-F7BA989C6109}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObtainGroupsCount", "ObtainGroupsCount\ObtainGroupsCount.csproj", "{8409FE9E-F86F-4EE2-96B5-F266A48AF653}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{615D8038-2B46-41EB-ABE5-5F979AC08E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615D8038-2B46-41EB-ABE5-5F979AC08E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615D8038-2B46-41EB-ABE5-5F979AC08E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00EAFF32-24D9-42C5-A503-F7BA989C6109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00EAFF32-24D9-42C5-A503-F7BA989C6109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00EAFF32-24D9-42C5-A503-F7BA989C6109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00EAFF32-24D9-42C5-A503-F7BA989C6109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8409FE9E-F86F-4EE2-96B5-F266A48AF653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8409FE9E-F86F-4EE2-96B5-F266A48AF653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8409FE9E-F86F-4EE2-96B5-F266A48AF653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8409FE9E-F86F-4EE2-96B5-F266A48AF653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

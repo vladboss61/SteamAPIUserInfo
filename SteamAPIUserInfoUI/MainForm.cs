@@ -33,6 +33,7 @@ public partial class MainForm : Form
         ulong[] ids = PrepareIds(IdsInput.Text);
         string[] apiKeys = PrepareApiKeys(SteamApiKeysInput.Text);
 
+
         var apiKesQueue = new Queue<string>(apiKeys);
 
         var checker = new SteamChecker();
